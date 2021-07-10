@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [Header("Health")]
-    private int health = 3;
+    [SerializeField] private int health;
     private bool isAlive = true;
 
     private Transform cachedTransform;
@@ -16,10 +16,6 @@ public class EnemyController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private Transform playerTransform;
     [SerializeField] private float speed;
-
-    public int Health { get => health; }
-
-    public bool IsAlive { get => isAlive; }
 
     private void Awake()
     {
@@ -38,6 +34,8 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        print(collision.tag);
+
         if (isAlive && collision.CompareTag("Bullet"))
         {
             health -= 1;
