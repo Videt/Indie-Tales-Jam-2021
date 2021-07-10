@@ -10,16 +10,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     private Vector2 movement;
 
-    [Header("Shooting setup")]
-    //[SerializeField] private Transform bulletTransform;
-    [SerializeField] private Camera cam;
-
     [Header("Fire")]
-    private Transform playerFirePointTransform;
+    [SerializeField] private Camera cam;
     [SerializeField] private Rigidbody2D playerFirePointRb;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private float reloadTime;
     [SerializeField] private GameObject bulletPrefab;
+    private Transform playerFirePointTransform;
     private bool canShoot = true;
     private bool isShooting;
     private Vector2 mousePos;
@@ -29,6 +26,10 @@ public class PlayerController : MonoBehaviour
     [Header("Clean")]
     private bool canClean;
     private bool isCleaning;
+    private GameObject bloodSplash;
+
+    [Header("Health")]
+    private int health = 5;
 
     private void Start()
     {
@@ -44,6 +45,11 @@ public class PlayerController : MonoBehaviour
             Shoot();
             canShoot = false;
             Invoke(nameof(Reload), reloadTime);
+        }
+
+        if (canClean && isCleaning)
+        {
+            Clean();
         }
     }
 
@@ -68,7 +74,9 @@ public class PlayerController : MonoBehaviour
 
     private void Clean()
     {
-
+        print("Clean");
+        isCleaning = false;
+        Destroy(bloodSplash);
     }
 
     private void Reload()
@@ -84,6 +92,29 @@ public class PlayerController : MonoBehaviour
         playerFirePointTransform.eulerAngles = new Vector3(0, 0, angle);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+            health -= 1;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("BloodSplash"))
+        {
+            canClean = true;
+            bloodSplash = collision.gameObject;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("BloodSplash"))
+        {
+            canClean = false;
+        }
+    }
+
     public void OnMovement(InputAction.CallbackContext value)
     {
         movement = value.ReadValue<Vector2>();
@@ -97,10 +128,7 @@ public class PlayerController : MonoBehaviour
     public void OnShoot(InputAction.CallbackContext value)
     {
         if (value.performed)
-        {
-            //targetPos = new Vector3(cam.ScreenToWorldPoint(aimDirection).x, cam.ScreenToWorldPoint(aimDirection).y, 0);
             isShooting = true;
-        }
 
         if (value.canceled)
             isShooting = false;
@@ -111,8 +139,6 @@ public class PlayerController : MonoBehaviour
         if (canClean && value.performed)
         {
             isCleaning = true;
-            canClean = false;
-            print("Clean");
         }
     }
 }
