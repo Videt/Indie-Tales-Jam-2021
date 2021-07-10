@@ -14,12 +14,13 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private GameObject bloodSplash;
 
     [Header("Movement")]
-    [SerializeField] private Transform playerTransform;
     [SerializeField] private float speed;
+    private Transform playerTransform;
 
     private void Awake()
     {
         cachedTransform = transform;
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void Update()
