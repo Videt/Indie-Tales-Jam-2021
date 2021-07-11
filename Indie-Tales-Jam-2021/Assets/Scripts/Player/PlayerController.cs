@@ -37,9 +37,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Sprite fullHeart;
     [SerializeField] private Sprite emptyHeart;
 
+    private AudioManager audioManager;
+
     private void Start()
     {
         playerFirePointTransform = playerFirePointRb.transform;
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void Update()
@@ -73,16 +76,15 @@ public class PlayerController : MonoBehaviour
 
     private void Shoot()
     {
-        print("Shoot");
-
         GameObject bullet = Instantiate(bulletPrefab, playerFirePointTransform.position, playerFirePointTransform.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(playerFirePointTransform.up * bulletSpeed, ForceMode2D.Impulse);
+
+        audioManager.Play("ShootSound");
     }
 
     private void Clean()
     {
-        print("Clean");
         isCleaning = false;
         Destroy(bloodSplash);
     }
