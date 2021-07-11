@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   bloodSplash: {fileID: 7358634031082165886, guid: 8ca6b880f6a058f4399bd90d41ab6b8a, type: 3}
+  particleEffect: {fileID: 1793480027260504131, guid: dcf62dd7d3f9cc3409eed6c6102b8a07, type: 3}
   speed: 5
 --- !u!61 &8993232516939835822
 BoxCollider2D:

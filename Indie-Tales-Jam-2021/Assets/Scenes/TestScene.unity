@@ -485,7 +485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRb2d: {fileID: 88738525}
-  moveSpeed: 100
+  moveSpeed: 105
   cam: {fileID: 46176917}
   playerFirePointRb: {fileID: 1928907001}
   bulletSpeed: 10
@@ -662,7 +662,13 @@ MonoBehaviour:
   - clipName: ShootSound
     clip: {fileID: 8300000, guid: eaff850b157284946aa5aa24d8b4b4d1, type: 3}
     source: {fileID: 0}
-    volume: 0.7
+    volume: 0.6
+    pitch: 1
+    loop: 0
+  - clipName: EnemyDeathSound
+    clip: {fileID: 8300000, guid: 8cc4d0303ba4b2a4d93fd5819918c87a, type: 3}
+    source: {fileID: 0}
+    volume: 0.65
     pitch: 1
     loop: 0
 --- !u!4 &332602503
@@ -1055,7 +1061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 8993232516939835818, guid: b4281bcb07e7b00469505aa867ef2969, type: 3}
-  spawnTimer: 1.1
+  spawnTimer: 1.2
   locations:
   - {fileID: 1085159045}
   - {fileID: 70628723}

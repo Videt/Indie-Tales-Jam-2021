@@ -12,15 +12,19 @@ public class EnemyController : MonoBehaviour
 
     [Header("Effects")]
     [SerializeField] private GameObject bloodSplash;
+    [SerializeField] private GameObject particleEffect;
 
     [Header("Movement")]
     [SerializeField] private float speed;
     private Transform playerTransform;
 
+    private AudioManager audioManager;
+
     private void Awake()
     {
         cachedTransform = transform;
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     private void Update()
@@ -56,8 +60,9 @@ public class EnemyController : MonoBehaviour
 
     private void Die()
     {
-        print("Died");
-        Instantiate(bloodSplash, transform.position, Quaternion.identity);
+        audioManager.Play("EnemyDeathSound");
+        Instantiate(bloodSplash, cachedTransform.position, Quaternion.identity);
+        Instantiate(particleEffect, cachedTransform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }
