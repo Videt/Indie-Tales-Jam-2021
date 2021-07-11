@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -29,7 +31,11 @@ public class PlayerController : MonoBehaviour
     private GameObject bloodSplash;
 
     [Header("Health")]
-    private int health = 5;
+    [SerializeField] private int health = 5;
+    [SerializeField] private int numberHearts;
+    [SerializeField] private Image[] hearts;
+    [SerializeField] private Sprite fullHeart;
+    [SerializeField] private Sprite emptyHeart;
 
     private void Start()
     {
@@ -39,6 +45,8 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         MouseLook();
+
+        HealthSystem();
 
         if (canShoot && isShooting)
         {
@@ -92,10 +100,33 @@ public class PlayerController : MonoBehaviour
         playerFirePointTransform.eulerAngles = new Vector3(0, 0, angle);
     }
 
+    private void HealthSystem()
+    {
+        if (health > numberHearts)
+            health = numberHearts;
+
+        for (int i = 0; i < hearts.Length; i++)
+        {
+            if (i < health)
+                hearts[i].sprite = fullHeart;
+            else
+                hearts[i].sprite = emptyHeart;
+
+            if (i < numberHearts)
+                hearts[i].enabled = true;
+            else
+                hearts[i].enabled = false;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Enemy"))
             health -= 1;
+
+        if (health <= 0)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
     }
 
     private void OnTriggerStay2D(Collider2D collision)
