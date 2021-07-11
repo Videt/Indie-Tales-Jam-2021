@@ -999,7 +999,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 8993232516939835818, guid: b4281bcb07e7b00469505aa867ef2969, type: 3}
-  spawnTimer: 1.5
+  spawnTimer: 1.3
   locations:
   - {fileID: 1085159045}
   - {fileID: 70628723}
