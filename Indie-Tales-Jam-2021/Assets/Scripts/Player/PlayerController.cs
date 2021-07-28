@@ -37,6 +37,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Sprite fullHeart;
     [SerializeField] private Sprite emptyHeart;
 
+    public delegate void StainCleaned();
+    public static event StainCleaned OnStainCleaned;
+
     private AudioManager audioManager;
 
     private void Start()
@@ -87,6 +90,7 @@ public class PlayerController : MonoBehaviour
     {
         isCleaning = false;
         Destroy(bloodSplash);
+        OnStainCleaned?.Invoke();
     }
 
     private void Reload()

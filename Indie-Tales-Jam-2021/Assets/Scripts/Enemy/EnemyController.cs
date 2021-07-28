@@ -18,6 +18,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float speed;
     private Transform playerTransform;
 
+    public delegate void EnemyDied();
+    public static event EnemyDied OnEnemyDied;
+
     private AudioManager audioManager;
 
     private void Awake()
@@ -63,6 +66,7 @@ public class EnemyController : MonoBehaviour
         audioManager.Play("EnemyDeathSound");
         Instantiate(bloodSplash, cachedTransform.position, Quaternion.identity);
         Instantiate(particleEffect, cachedTransform.position, Quaternion.identity);
+        OnEnemyDied?.Invoke();
         Destroy(gameObject);
     }
 }
