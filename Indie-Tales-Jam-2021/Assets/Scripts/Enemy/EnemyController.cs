@@ -42,8 +42,6 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print(collision.tag);
-
         if (isAlive && collision.CompareTag("Bullet"))
         {
             health -= 1;
