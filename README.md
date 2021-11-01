@@ -6,7 +6,7 @@
 
 ## Description
 
-A game made in 48 hours by [Egor Shevchenko](https://github.com/Videt) for The Indie Tales Jam 2021 using the Unity game engine.
+A game made in 48 hours by [Egor Shevchenko](https://github.com/egor-shev) for The Indie Tales Jam 2021 using the Unity game engine.
 
 You are a robot vacuum cleaner that must kill the enemies invading your room and clean the blood stains before time runs out.
 
